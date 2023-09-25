@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model feeders {
+  id          Int      @id @default(autoincrement())
+  barcode    String   @db.VarChar(50)
+  name       String   @db.VarChar(50)
+  token      String   @db.VarChar(50)
+  uuid       String   @db.VarChar(50)
+  jwt        String   @db.VarChar(200)
+  type       String   @db.VarChar(6)
+  version    String   @db.VarChar(10)
+  status     status_feeder @default(inject)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model inject_history {
+  id          Int      @id @default(autoincrement())
+  barcode    String   @db.VarChar(50)
+  name       String   @db.VarChar(50)
+  token      String   @db.VarChar(50)
+  uuid       String   @db.VarChar(50)
+  status     status_feeder @default(injected)
+  DateTime   String @db.VarChar(50)
+}
+
+enum status_feeder {
+  inject
+  injected
+}
