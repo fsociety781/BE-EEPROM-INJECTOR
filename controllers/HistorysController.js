@@ -1,9 +1,23 @@
 const prisma = require('../bin/prisma')
 
 class HistorysController {
-    // static async index(req, res) {
-
-    // }
+    static async index(req, res) {
+        try{
+            const history = await prisma.inject_history.findMany({
+                orderBy: {
+                    DateTime: 'desc'
+                }
+            })
+            return res.status(200).json({
+                status: '200',
+                message: 'Succes Get History',
+                data: history
+            })
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
 
     static async store(req, res) {
         try{

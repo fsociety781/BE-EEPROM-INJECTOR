@@ -5,9 +5,6 @@ class EepromController {
         try{
           
             const feeders = await prisma.feeders.findMany({
-                where:{
-                    status: "inject"
-                },
                 select: {
                     id: true,
                     barcode: true,
@@ -23,18 +20,18 @@ class EepromController {
 
             if(feeders)
             
-            if(feeders.length == 0){
-                return res.status(404).json({ 
-                    status: '404',
-                    message: "Data not found!"
-                 });
-                }else{
+            // if(feeders.length == 0){
+            //     return res.status(200).json({ 
+            //         status: '200',
+            //         message: "Data not found!"
+            //      });
+            //     }else{
                     return res.status(200).json({ 
                         status: '200',
                         message: "Success!",
                         data: feeders
                      });
-                }
+                // }
             }catch(err){
                 console.log(err);
                 return res.status(500).json({ message: "Internal Server Error" });

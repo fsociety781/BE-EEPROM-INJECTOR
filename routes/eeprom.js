@@ -8,6 +8,7 @@ router.get('/eeprom', EepromController.index);
 router.post('/eeprom', EepromController.store);
 router.patch('/eeprom/:id', EepromController.update);
 
+router.get('/history', HistorysController.index)
 router.post('/history', HistorysController.store)
 
 module.exports = router;
